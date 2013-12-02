@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
@@ -25,14 +26,20 @@ public class AdventGame implements ApplicationListener {
 	TextureRegion christmasBall;
 
 	Texture snowflake;
+	Texture cursor;
 
 	OrthographicCamera camera;
 
 	float ballX; // Position des Balles
 	float ballY;
+	
+	float cursorX;
+	float cursorY;
 
 	Array<Snowflake> flakes;
 
+	float points = 50;
+	
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
@@ -48,15 +55,15 @@ public class AdventGame implements ApplicationListener {
 
 		snowflake = new Texture(Gdx.files.internal("graphics/snowflake.png"));
 
+		cursor = new Texture(Gdx.files.internal("graphics/cursor.png"));
+		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		flakes = new Array<Snowflake>();
 
 		// generate some snowflakes
-		for (int i = 0; i < 20; i++) {
-			flakes.add(new Snowflake(MathUtils.random(800), MathUtils
-					.random(480), MathUtils.random(-100, -50), MathUtils
-					.random(0.3f, 1.5f)));
+		for (int i = 0; i < 40; i++) {
+			generateRandomSnowflake(MathUtils.random(480));
 		}
 	}
 
@@ -82,25 +89,62 @@ public class AdventGame implements ApplicationListener {
 		 * 
 		 * //ballY += Gdx.graphics.getDeltaTime()*300; }
 		 */
-		batch.draw(christmasBall, ballX, ballY);
+	//	batch.draw(christmasBall, ballX, ballY);
 
 		for (int i = 0; i < flakes.size; i++) { // go through all the snowflakes
 			Snowflake current = flakes.get(i);
-			
+
 			current.act(Gdx.graphics.getDeltaTime());
-			
-			if (current.posY < -snowflake.getHeight() * current.size) { // snowflake gets deleted
+
+			if (current.posY < -snowflake.getHeight() * current.size) { // snowflake
+																		// gets
+																		// deleted
 				flakes.removeIndex(i);
+				i--;
+				
+				points--;
+				
+				generateRandomSnowflake(480); // spawn a new snowflake at the top of the screen
 				continue;
 			}
-			
 
 			batch.draw(snowflake, current.posX, current.posY,
-					snowflake.getWidth() * current.size,
-					snowflake.getHeight() * current.size);
+					// origin
+					snowflake.getWidth() * current.size / 2,
+					snowflake.getHeight() * current.size / 2,
+					
+					snowflake.getWidth(), snowflake.getHeight(),
+					current.size, current.size,
+					current.rotation, 0, 0, snowflake.getWidth(),
+					snowflake.getHeight(), false, false);
 		}
 
+		
+		// Cursor malen
+		batch.draw(cursor, cursorX,cursorY);
+		
 		batch.end();
+		
+		System.out.println("Punkte: " + points);
+		
+		
+		if (points < 0) {
+			// you lose
+			System.err.println("Du hast verloren.");
+			Gdx.app.exit();
+		}
+		
+		if (flakes.size == 0) {
+			// you win
+			System.out.println("Du hast mit " + points + " Punkten gewonnen.");
+			Gdx.app.exit();
+		}
+	}
+	
+	
+	public void generateRandomSnowflake(float pY) {
+		flakes.add(new Snowflake(MathUtils.random(800), pY, MathUtils.random(-100, -50), MathUtils
+				.random(0.3f, 1.5f), MathUtils.random(0, 360), MathUtils.random(30,100)));	
 	}
 
 	@Override
@@ -140,6 +184,28 @@ public class AdventGame implements ApplicationListener {
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer,
 				int button) {
+			
+			
+			// shoot the snowflakes
+			
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touchPos);
+			
+			for (int i = 0;i < flakes.size; i++) {
+				Snowflake current=flakes.get(i);
+				if (new Rectangle(current.posX,current.posY,snowflake.getWidth()
+						* current.size,snowflake.getHeight()
+						* current.size).contains(touchPos.x, touchPos.y)){
+					
+					// we shot this snowflake
+					flakes.removeIndex(i);
+					points += 3;
+					
+					break;
+				}
+			}
+			
+			
 			return false;
 		}
 
@@ -154,15 +220,25 @@ public class AdventGame implements ApplicationListener {
 
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			ballX = touchPos.x - christmasBall.getRegionWidth() / 2;
-			ballY = touchPos.y - christmasBall.getRegionHeight() / 2;
+		//	ballX = touchPos.x - christmasBall.getRegionWidth() / 2;
+		//	ballY = touchPos.y - christmasBall.getRegionHeight() / 2;
+			
+			cursorX = touchPos.x - 16;
+			cursorY = touchPos.y - 16;
 
 			return false;
 		}
 
 		@Override
 		public boolean mouseMoved(int screenX, int screenY) {
-			// TODO Auto-generated method stub
+			
+			// move cursor
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touchPos);
+			
+			cursorX = touchPos.x - 16;
+			cursorY = touchPos.y - 16;
+			
 			return false;
 		}
 
