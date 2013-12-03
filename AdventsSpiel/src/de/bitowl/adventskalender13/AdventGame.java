@@ -1,14 +1,17 @@
 package de.bitowl.adventskalender13;
 
+import javax.swing.GroupLayout.Alignment;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -29,6 +32,10 @@ public class AdventGame implements ApplicationListener {
 	Texture cursor;
 
 	OrthographicCamera camera;
+	
+	BitmapFont defaultFont;
+	BitmapFont winFont;
+	BitmapFont loseFont;
 
 	float ballX; // Position des Balles
 	float ballY;
@@ -38,7 +45,10 @@ public class AdventGame implements ApplicationListener {
 
 	Array<Snowflake> flakes;
 
-	float points = 50;
+	int points = 50;
+	
+	boolean win;
+	boolean lose;
 	
 	@Override
 	public void create() {
@@ -48,6 +58,7 @@ public class AdventGame implements ApplicationListener {
 		camera.setToOrtho(false, 800, 480);
 
 		tree = new Texture(Gdx.files.internal("graphics/tree.png"));
+		tree.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		christmasTree = new TextureRegion(tree, 0, 0, 450, 730);
 
 		ball = new Texture(Gdx.files.internal("graphics/ball.png"));
@@ -57,12 +68,22 @@ public class AdventGame implements ApplicationListener {
 
 		cursor = new Texture(Gdx.files.internal("graphics/cursor.png"));
 		
+		defaultFont = new BitmapFont(Gdx.files.internal("fonts/white.fnt"));
+		defaultFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		winFont = new BitmapFont(Gdx.files.internal("fonts/win.fnt"));
+		winFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		loseFont = new BitmapFont(Gdx.files.internal("fonts/lose.fnt"));
+		loseFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		flakes = new Array<Snowflake>();
+		
+		
 
 		// generate some snowflakes
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 200; i++) {
 			generateRandomSnowflake(MathUtils.random(480));
 		}
 	}
@@ -120,6 +141,15 @@ public class AdventGame implements ApplicationListener {
 		}
 
 		
+		defaultFont.draw(batch, "points: " + points, 10, 470);
+		
+		if (win) {
+			 winFont.drawWrapped(batch, "you won with " + points +" points!", 0, 280, 800, HAlignment.CENTER);
+		} else if (lose) {
+			loseFont.drawWrapped(batch, "you lose", 0, 240, 800, HAlignment.CENTER);
+		}
+		
+		
 		// Cursor malen
 		batch.draw(cursor, cursorX,cursorY);
 		
@@ -131,13 +161,15 @@ public class AdventGame implements ApplicationListener {
 		if (points < 0) {
 			// you lose
 			System.err.println("Du hast verloren.");
-			Gdx.app.exit();
+			lose = true;
+			// Gdx.app.exit();
 		}
 		
 		if (flakes.size == 0) {
 			// you win
 			System.out.println("Du hast mit " + points + " Punkten gewonnen.");
-			Gdx.app.exit();
+			win = true;
+			//Gdx.app.exit();
 		}
 	}
 	

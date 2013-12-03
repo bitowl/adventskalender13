@@ -1,6 +1,5 @@
 package de.bitowl.adventskalender13;
 
-import java.awt.Cursor;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
