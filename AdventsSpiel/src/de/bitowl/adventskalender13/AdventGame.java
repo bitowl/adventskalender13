@@ -14,13 +14,19 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 
 public class AdventGame implements ApplicationListener {
 
 	static final int INITIAL_FLAKES = 40;
 	
-	SpriteBatch batch;
+	Stage stage;
+	// SpriteBatch batch;
 
 	Texture tree;
 	TextureRegion christmasTree;
@@ -30,7 +36,7 @@ public class AdventGame implements ApplicationListener {
 	Texture snowflake;
 	Texture cursor;
 
-	OrthographicCamera camera;
+	//OrthographicCamera camera;
 	
 	BitmapFont defaultFont;
 	BitmapFont winFont;
@@ -49,12 +55,16 @@ public class AdventGame implements ApplicationListener {
 	boolean win;
 	boolean lose;
 	
+	Image cursorActor;
+	Image treeActor;
+	
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
+		stage = new Stage(800,480);
+		//batch = new SpriteBatch();
 
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+//		camera = new OrthographicCamera();
+	//	camera.setToOrtho(false, 800, 480);
 
 		tree = new Texture(Gdx.files.internal("graphics/tree.png"));
 		tree.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -80,11 +90,28 @@ public class AdventGame implements ApplicationListener {
 		flakes = new Array<Snowflake>();
 		
 		
-
+		// TODO check why z-index does not do as i think
+		treeActor = new Image(christmasTree);
+		treeActor.setX(0);treeActor.setY(0);
+		treeActor.setOrigin(treeActor.getWidth()/2, treeActor.getHeight()/2);
+		//treeActor.setZIndex(0);
+		treeActor.toBack();
+		//treeActor.setRotation(10);
+//		treeActor.setScale(0.7f);
+		
+		treeActor.setTouchable(Touchable.disabled);
+		//treeActor.addAction(Actions.repeat(-1,Actions.sequence(Actions.rotateBy(180f,2f),Actions.delay(1f))));
+		stage.addActor(treeActor);
+		
 		// generate some snowflakes
 		for (int i = 0; i < INITIAL_FLAKES; i++) {
 			generateRandomSnowflake(MathUtils.random(480));
 		}
+		
+		cursorActor = new Image(cursor);
+		cursorActor.setTouchable(Touchable.disabled);
+		stage.addActor(cursorActor);
+
 	}
 
 	@Override
@@ -96,7 +123,7 @@ public class AdventGame implements ApplicationListener {
 		defaultFont.dispose();
 		winFont.dispose();
 		loseFont.dispose();
-		
+		stage.dispose();
 	}
 
 	@Override
@@ -104,9 +131,13 @@ public class AdventGame implements ApplicationListener {
 		Gdx.gl.glClearColor(0, 0.7f, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		batch.setProjectionMatrix(camera.combined); // mal wo kamara hingugt!
-		batch.begin();
-		batch.draw(christmasTree, 0, 0);
+		stage.act();
+		stage.draw();
+		
+		
+	//	batch.setProjectionMatrix(camera.combined); // mal wo kamara hingugt!
+	//	batch.begin();
+	//	batch.draw(christmasTree, 0, 0);
 		/*
 		 * if(Gdx.input.isTouched()){
 		 * 
@@ -120,51 +151,51 @@ public class AdventGame implements ApplicationListener {
 		 * //ballY += Gdx.graphics.getDeltaTime()*300; }
 		 */
 	//	batch.draw(christmasBall, ballX, ballY);
-
-		for (int i = 0; i < flakes.size; i++) { // go through all the snowflakes
-			Snowflake current = flakes.get(i);
-
-			current.act(Gdx.graphics.getDeltaTime());
-
-			if (current.posY < -snowflake.getHeight() * current.size) { // snowflake
-																		// gets
-																		// deleted
-				flakes.removeIndex(i);
-				i--;
-				
-				points--;
-				
-				generateRandomSnowflake(480); // spawn a new snowflake at the top of the screen
-				continue;
-			}
-
-			// mysterious something that draws snowflakes
-			batch.draw(snowflake, current.posX, current.posY,
-					// origin
-					snowflake.getWidth() * current.size / 2,
-					snowflake.getHeight() * current.size / 2,
-					
-					snowflake.getWidth(), snowflake.getHeight(),
-					current.size, current.size,
-					current.rotation, 0, 0, snowflake.getWidth(),
-					snowflake.getHeight(), false, false);
-		}
-
-		if (!win && !lose) {
-			defaultFont.draw(batch, "points: " + points, 10, 470);
-		}
-		
-		if (win) {
-			 winFont.drawWrapped(batch, "you won with " + points +" points!", 0, 280, 800, HAlignment.CENTER);
-		} else if (lose) {
-			loseFont.drawWrapped(batch, "you lose", 0, 240, 800, HAlignment.CENTER);
-		}
-		
-		
-		// Cursor malen
-		batch.draw(cursor, cursorX,cursorY);
-		
-		batch.end();
+//
+//		for (int i = 0; i < flakes.size; i++) { // go through all the snowflakes
+//			Snowflake current = flakes.get(i);
+//
+//			current.act(Gdx.graphics.getDeltaTime());
+//
+//			if (current.posY < -snowflake.getHeight() * current.size) { // snowflake
+//																		// gets
+//																		// deleted
+//				flakes.removeIndex(i);
+//				i--;
+//				
+//				points--;
+//				
+//				generateRandomSnowflake(480); // spawn a new snowflake at the top of the screen
+//				continue;
+//			}
+//
+//			// mysterious something that draws snowflakes
+//			batch.draw(snowflake, current.posX, current.posY,
+//					// origin
+//					snowflake.getWidth() * current.size / 2,
+//					snowflake.getHeight() * current.size / 2,
+//					
+//					snowflake.getWidth(), snowflake.getHeight(),
+//					current.size, current.size,
+//					current.rotation, 0, 0, snowflake.getWidth(),
+//					snowflake.getHeight(), false, false);
+//		}
+//
+//		if (!win && !lose) {
+//			defaultFont.draw(batch, "points: " + points, 10, 470);
+//		}
+//		
+//		if (win) {
+//			 winFont.drawWrapped(batch, "you won with " + points +" points!", 0, 280, 800, HAlignment.CENTER);
+//		} else if (lose) {
+//			loseFont.drawWrapped(batch, "you lose", 0, 240, 800, HAlignment.CENTER);
+//		}
+//		
+//		
+//		// Cursor malen
+//		batch.draw(cursor, cursorX,cursorY);
+//		
+//		batch.end();
 		
 		//System.out.println("Punkte: " + points);
 		
@@ -176,7 +207,7 @@ public class AdventGame implements ApplicationListener {
 			// Gdx.app.exit();
 		}
 		
-		if (flakes.size == 0) {
+		if (stage.getActors().size == 2) { // cursor + tree are still there
 			// you win
 			//System.out.println("Du hast mit " + points + " Punkten gewonnen.");
 			win = true;
@@ -186,13 +217,18 @@ public class AdventGame implements ApplicationListener {
 	
 	
 	public void generateRandomSnowflake(float pY) {
-		flakes.add(new Snowflake(MathUtils.random(800), pY, MathUtils.random(-100, -50), MathUtils
-				.random(0.3f, 1.5f), MathUtils.random(0, 360), MathUtils.random(30,100)));	
+		stage.addActor(new Snowflake(snowflake,MathUtils.random(800), pY, MathUtils.random(-100, -50), MathUtils
+				.random(0.3f, 1.5f), MathUtils.random(0, 360), MathUtils.random(30,100),MathUtils.random(0,100), this));
+		// flakes.add();	
 	}
 
 	// after win or lost restart the game with a click
 	public void restartGame() {
-		flakes.clear();
+	//	flakes.clear();
+		stage.clear();
+		stage.addActor(treeActor);
+		stage.addActor(cursorActor);
+		
 		// generate some snowflakes
 		for (int i = 0; i < INITIAL_FLAKES; i++) {
 			generateRandomSnowflake(MathUtils.random(480));
@@ -249,13 +285,17 @@ public class AdventGame implements ApplicationListener {
 			// shoot the snowflakes
 			
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			camera.unproject(touchPos);
+			stage.getCamera().unproject(touchPos);
 			
-			for (int i = 0;i < flakes.size; i++) {
+			Actor hit = stage.hit(touchPos.x, touchPos.y, true);
+			if(hit != null){
+				hit.remove();
+				points += 3;
+			}
+			
+		/*	for (int i = 0;i < flakes.size; i++) {
 				Snowflake current=flakes.get(i);
-				if (new Rectangle(current.posX,current.posY,snowflake.getWidth()
-						* current.size,snowflake.getHeight()
-						* current.size).contains(touchPos.x, touchPos.y)){
+					if(hit){
 					
 					// we shot this snowflake
 					flakes.removeIndex(i);
@@ -263,7 +303,7 @@ public class AdventGame implements ApplicationListener {
 					
 					break;
 				}
-			}
+			}*/
 			
 			
 			return false;
@@ -279,12 +319,13 @@ public class AdventGame implements ApplicationListener {
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			camera.unproject(touchPos);
+			stage.getCamera().unproject(touchPos);
 		//	ballX = touchPos.x - christmasBall.getRegionWidth() / 2;
 		//	ballY = touchPos.y - christmasBall.getRegionHeight() / 2;
 			
-			cursorX = touchPos.x - 16;
-			cursorY = touchPos.y - 16;
+			cursorActor.setPosition(touchPos.x - 16, touchPos.y -16);
+		//	cursorX = touchPos.x - 16;
+			//cursorY = touchPos.y - 16;
 
 			return false;
 		}
@@ -294,10 +335,11 @@ public class AdventGame implements ApplicationListener {
 			
 			// move cursor
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			camera.unproject(touchPos);
+			stage.getCamera().unproject(touchPos);
 			
-			cursorX = touchPos.x - 16;
-			cursorY = touchPos.y - 16;
+			cursorActor.setPosition(touchPos.x - 16, touchPos.y -16);
+			//cursorX = touchPos.x - 16;
+			//cursorY = touchPos.y - 16;
 			
 			return false;
 		}
@@ -308,5 +350,10 @@ public class AdventGame implements ApplicationListener {
 			return false;
 		}
 
+	}
+
+	public void removePointAndCreateSnowflake() {
+		points--;
+		generateRandomSnowflake(480); // spawn a new snowflake at the top of the screen		
 	}
 }
