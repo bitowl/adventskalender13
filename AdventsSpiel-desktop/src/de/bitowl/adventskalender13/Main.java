@@ -16,8 +16,10 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "AdventsSpiel";
 		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 320;
+		//cfg.width = 480;
+		//cfg.height = 320;
+		cfg.width = 800;
+		cfg.height = 480;
 
 		new LwjglApplication(new AdventGame(), cfg);
 		new Thread(new Runnable() {
@@ -26,7 +28,7 @@ public class Main {
 			public void run() {
 				try {
 					Thread.sleep(1000);
-					setHWCursorVisible(false);
+					setHWCursorVisible(true);
 				} catch (LWJGLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

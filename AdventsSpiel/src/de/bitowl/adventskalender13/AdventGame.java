@@ -2,6 +2,7 @@ package de.bitowl.adventskalender13;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,12 +11,22 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.utils.TextureBinder;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class AdventGame implements ApplicationListener {
 
@@ -43,6 +54,8 @@ public class AdventGame implements ApplicationListener {
 
 	Group snowflakes;
 	
+	Skin skin;
+	
 	@Override
 	public void create() {
 		stage = new Stage(800,480);
@@ -62,8 +75,10 @@ public class AdventGame implements ApplicationListener {
 		loseFont = new BitmapFont(Gdx.files.internal("fonts/lose.fnt"));
 		loseFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
+
+		// Gdx.input.setInputProcessor(new MyInputProcessor());
+		// Gdx.input.setInputProcessor(stage);
 		
-		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		snowflakes = new Group();
 		stage.addActor(snowflakes);
@@ -82,8 +97,58 @@ public class AdventGame implements ApplicationListener {
 		cursorActor = new Image(cursor);
 		stage.addActor(cursorActor);
 		
-		cursorActor.toFront();
+		// Ui building
+		skin = new Skin(Gdx.files.internal("ui/defaultskin.json"));
+		
+		Table table = new Table(skin);
+		//table.debug();
+		table.setSize(800, 480);
+		
+		
+		LabelStyle titlestyle = new LabelStyle(skin.get(LabelStyle.class));
+		titlestyle.font = loseFont;
+		
+		Label title = new Label("you lose", titlestyle);
+		
+		//title.setStyle()
+		table.add(title).padBottom(30).row();
+		
+		TextButton newGame = new TextButton("new game", skin);
+		table.add(newGame).pad(10).row();
+		
+		TextButton quitGame = new TextButton("quit game", skin);
+		table.add(quitGame).pad(10).row();		
+		
+		/*TextButton button1 = new TextButton("klick mich", skin);
+		// button1.setPosition(400-button1.getWidth()/2, 240-button1.getHeight()/2);
+		
+		button1.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+			}
+		});
+		
+		table.add(button1).pad(10).row();
+		
+		// stage.addActor(button1);
+		
+		TextField feld = new TextField("", skin);
+		// feld.setPosition(400-button1.getWidth() * 5 / 2, 240 - feld.getHeight() / 2);
+		// stage.addActor(feld);
 
+		table.add(feld).pad(10).expandY().align(Align.bottom);*/
+
+		
+		stage.addActor(table);
+				
+		cursorActor.toFront();
+		
+		InputMultiplexer multiplexer = new InputMultiplexer();
+		multiplexer.addProcessor(stage);
+		// multiplexer.addProcessor(new MyInputProcessor());
+		
+		Gdx.input.setInputProcessor(multiplexer);
 	}
 
 	@Override
@@ -104,7 +169,7 @@ public class AdventGame implements ApplicationListener {
 
 		stage.act();
 		stage.draw();
-		
+		Table.drawDebug(stage);
 		SpriteBatch batch = stage.getSpriteBatch();
 		batch.begin();
 		if (!win && !lose) {
@@ -184,6 +249,7 @@ public class AdventGame implements ApplicationListener {
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer,
 				int button) {
+			
 			
 			if (win || lose) {
 				restartGame();
