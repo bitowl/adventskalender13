@@ -1,0 +1,33 @@
+
+graphics1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+tree
+  rotate: false
+  xy: 2, 2
+  size: 453, 730
+  orig: 453, 730
+  offset: 0, 0
+  index: -1
+ball
+  rotate: false
+  xy: 2, 734
+  size: 87, 81
+  orig: 87, 81
+  offset: 0, 0
+  index: -1
+snowflake
+  rotate: false
+  xy: 457, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+cursor
+  rotate: false
+  xy: 457, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

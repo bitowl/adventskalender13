@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
@@ -23,11 +25,11 @@ public class IngameScreen extends AbstractScreen {
 	boolean win;
 	boolean lose;
 	
+	TextureAtlas atlas;
 	
-	Texture tree;
-	TextureRegion christmasTree;	
-	Texture snowflake;
-	Texture cursor;
+	AtlasRegion tree;
+	AtlasRegion snowflake;
+	AtlasRegion cursor;
 	
 	BitmapFont defaultFont;
 	BitmapFont winFont;
@@ -42,24 +44,18 @@ public class IngameScreen extends AbstractScreen {
 	public IngameScreen(AdventGame pGame){
 		super(pGame);
 		
-		tree = new Texture(Gdx.files.internal("graphics/tree.png"));
-		tree.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		christmasTree = new TextureRegion(tree, 0, 0, 450, 730);
+		atlas = new TextureAtlas(Gdx.files.internal("graphics/textures.pack"));
 		
-		treeActor = new Image(christmasTree);
+		tree = atlas.findRegion("tree");
+		cursor = atlas.findRegion("cursor");
+		snowflake = atlas.findRegion("snowflake");
+		
+		treeActor = new Image(tree);
 		treeActor.setX(0);treeActor.setY(0);
 		treeActor.setOrigin(treeActor.getWidth()/2, treeActor.getHeight()/2);
 		
 		stage.addActor(treeActor);
-		
-		tree = new Texture(Gdx.files.internal("graphics/tree.png"));
-		tree.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		christmasTree = new TextureRegion(tree, 0, 0, 450, 730);
-
-		snowflake = new Texture(Gdx.files.internal("graphics/snowflake.png"));
-
-		cursor = new Texture(Gdx.files.internal("graphics/cursor.png"));
-		
+				
 		defaultFont = new BitmapFont(Gdx.files.internal("fonts/white.fnt"));
 		defaultFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		winFont = new BitmapFont(Gdx.files.internal("fonts/win.fnt"));
@@ -215,9 +211,10 @@ public class IngameScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
-		tree.dispose();
+		atlas.dispose();
+		/*tree.dispose();
 		snowflake.dispose();
-		cursor.dispose();
+		cursor.dispose();*/
 		loseFont.dispose();
 		winFont.dispose();
 		defaultFont.dispose();
