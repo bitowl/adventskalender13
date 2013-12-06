@@ -5,45 +5,29 @@ filter: Linear,Linear
 repeat: none
 tree
   rotate: false
-  xy: 1, 168
+  xy: 1, 118
   size: 453, 730
   orig: 453, 730
   offset: 0, 0
   index: -1
 ball
   rotate: false
-  xy: 1, 85
+  xy: 1, 35
   size: 87, 81
   orig: 87, 81
   offset: 0, 0
   index: -1
-button2
-  rotate: false
-  xy: 1, 33
-  size: 57, 50
-  split: 28, 27, 12, 14
-  orig: 57, 50
-  offset: 0, 0
-  index: -1
 cursor
   rotate: false
-  xy: 456, 866
+  xy: 456, 816
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 snowflake
   rotate: false
-  xy: 90, 134
+  xy: 1, 1
   size: 32, 32
   orig: 32, 32
-  offset: 0, 0
-  index: -1
-button
-  rotate: false
-  xy: 1, 1
-  size: 30, 30
-  split: 11, 11, 11, 11
-  orig: 30, 30
   offset: 0, 0
   index: -1

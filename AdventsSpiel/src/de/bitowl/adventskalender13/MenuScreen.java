@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MenuScreen extends AbstractScreen{
@@ -17,21 +18,21 @@ public class MenuScreen extends AbstractScreen{
 		game = pGame;		
 		
 		// Ui building
-		skin = new Skin(Gdx.files.internal("ui/defaultskin.json"));
+		skin = new Skin(Gdx.files.internal("ui/myui.json"));
 		
 		Table table = new Table(skin);
 		//table.debug();
 		table.setSize(800, 480);
 		
 		
-		LabelStyle titlestyle = new LabelStyle(skin.get(LabelStyle.class));
+	//	LabelStyle titlestyle = new LabelStyle(skin.get(LabelStyle.class));
 		// titlestyle.font = loseFont;
 		
-		Label title = new Label("AdventsSpiel", titlestyle);
+		Label title = new Label("Schneeflockenmassaker", skin, "title");
 		
 		//title.setStyle()
 		table.add(title).padBottom(30).row();
-		
+
 		TextButton newGame = new TextButton("new game", skin);
 		newGame.addListener(new ClickListener(){
 			@Override
