@@ -2,14 +2,13 @@ package de.bitowl.adventskalender13;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -38,6 +37,8 @@ public class IngameScreen extends AbstractScreen {
 	Image cursorActor;
 	Image treeActor;
 	
+	NinePatch buttonPatch;
+	
 	Group snowflakes;
 	
 	
@@ -49,6 +50,9 @@ public class IngameScreen extends AbstractScreen {
 		tree = atlas.findRegion("tree");
 		cursor = atlas.findRegion("cursor");
 		snowflake = atlas.findRegion("snowflake");
+		
+		buttonPatch = atlas.createPatch("button");
+		System.out.println(buttonPatch);
 		
 		treeActor = new Image(tree);
 		treeActor.setX(0);treeActor.setY(0);
@@ -92,6 +96,10 @@ public class IngameScreen extends AbstractScreen {
 		} else if (lose) {
 			loseFont.drawWrapped(batch, "you lose", 0, 240, 800, HAlignment.CENTER);
 		}
+		
+		buttonPatch.draw(batch, 50, 50, 200, 200);
+		
+		
 		batch.end();
 
 		if (points < 0) {
