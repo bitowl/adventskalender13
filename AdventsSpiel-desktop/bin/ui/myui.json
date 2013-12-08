@@ -1,4 +1,8 @@
 {
+	com.badlogic.gdx.graphics.Color: {
+		white: { a: 1, b: 1, g: 1, r: 1 },
+		black: { a: 1, b: 0, g: 0, r: 0 }
+	},
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
 		default: {
 			file: mydefault.fnt
@@ -21,6 +25,63 @@
 			down: button_down,
 			over: button_over,
 			font: default
+		}
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+		default: {
+			background: textfield,
+			focusedBackground: textfield_focused,
+			disabledBackground: textfield_disabled,
+			font: default,
+			fontColor: black,
+			cursor: caret,
+			selection: selection
+		}
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+		default: {
+			checkboxOff: checkbox,
+			checkboxOn: checkbox_checked,
+			font: default,
+			fontColor: black
+		}
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+		default: {
+			font: default,
+			fontColorSelected: black,
+			selection: selection
+		},
+		selectbox_list: {
+			font: default,
+			fontColorSelected: black,
+			selection: transparent
+		}
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+		default: {
+			background: transparent,
+			hScroll: scroll,
+			hScrollKnob: scrollknob,
+			vScroll: scroll,
+			vScrollKnob: scrollknob
+		},
+		selectbox_scroll: {
+			background: selectbox_text,
+			hScroll: scroll,
+			hScrollKnob: scrollknob,
+			vScroll: scroll,
+			vScrollKnob: scrollknob
+		}
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+		default: {
+			background: selectbox,
+			backgroundOpen: selectbox_open,
+			scrollStyle: selectbox_scroll,
+			listStyle: selectbox_list,
+			font: default,
+			fontColor: black
 		}
 	}
 }

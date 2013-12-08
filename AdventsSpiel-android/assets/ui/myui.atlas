@@ -5,21 +5,80 @@ filter: Linear,Linear
 repeat: none
 mydefault
   rotate: false
-  xy: 1, 65
+  xy: 1, 111
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 title
   rotate: false
-  xy: 131, 65
+  xy: 131, 111
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+selectbox_open
+  rotate: false
+  xy: 1, 79
+  size: 36, 30
+  split: 11, 17, 0, 30
+  orig: 36, 30
+  offset: 0, 0
+  index: -1
+selectbox
+  rotate: false
+  xy: 261, 209
+  size: 36, 30
+  split: 11, 17, 0, 30
+  orig: 36, 30
+  offset: 0, 0
+  index: -1
+checkbox_checked
+  rotate: false
+  xy: 1, 45
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+selectbox_text
+  rotate: false
+  xy: 261, 175
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+checkbox
+  rotate: false
+  xy: 1, 11
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+checkbox_checked_disabled
+  rotate: false
+  xy: 261, 141
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+checkbox_disabled
+  rotate: false
+  xy: 39, 77
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 button_over
   rotate: false
-  xy: 1, 33
+  xy: 299, 209
+  size: 30, 30
+  split: 11, 11, 11, 11
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+textfield_focused
+  rotate: false
+  xy: 295, 177
   size: 30, 30
   split: 11, 11, 11, 11
   orig: 30, 30
@@ -27,7 +86,23 @@ button_over
   index: -1
 button
   rotate: false
-  xy: 261, 163
+  xy: 73, 79
+  size: 30, 30
+  split: 11, 11, 11, 11
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+selectbox_text
+  rotate: false
+  xy: 331, 209
+  size: 30, 30
+  split: 11, 11, 0, 22
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+textfield
+  rotate: false
+  xy: 295, 145
   size: 30, 30
   split: 11, 11, 11, 11
   orig: 30, 30
@@ -35,9 +110,56 @@ button
   index: -1
 button_down
   rotate: false
-  xy: 1, 1
+  xy: 327, 177
   size: 30, 30
   split: 11, 11, 11, 11
   orig: 30, 30
+  offset: 0, 0
+  index: -1
+textfield_disabled
+  rotate: false
+  xy: 105, 79
+  size: 30, 30
+  split: 11, 11, 11, 11
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+caret
+  rotate: false
+  xy: 363, 209
+  size: 3, 30
+  split: 1, 1, 1, 1
+  orig: 3, 30
+  offset: 0, 0
+  index: -1
+scrollknob
+  rotate: false
+  xy: 1, 1
+  size: 8, 8
+  split: 2, 2, 2, 2
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+scroll
+  rotate: false
+  xy: 261, 131
+  size: 8, 8
+  split: 2, 2, 2, 2
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+selection
+  rotate: false
+  xy: 35, 76
+  size: 1, 1
+  split: 0, 0, 0, 0
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+transparent
+  rotate: false
+  xy: 295, 142
+  size: 1, 1
+  orig: 1, 1
   offset: 0, 0
   index: -1

@@ -1,8 +1,10 @@
 package de.bitowl.adventskalender13;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -13,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
 
 public class IngameScreen extends AbstractScreen {
 
@@ -39,6 +42,12 @@ public class IngameScreen extends AbstractScreen {
 	
 	Group snowflakes;
 	
+	Animation megaAnimation;
+	float megaAnimationTime;
+	Animation stopAnimation;
+	
+	Player player;
+	
 	
 	public IngameScreen(AdventGame pGame){
 		super(pGame);
@@ -49,9 +58,20 @@ public class IngameScreen extends AbstractScreen {
 		cursor = atlas.findRegion("cursor");
 		snowflake = atlas.findRegion("snowflake");
 		
+		megaAnimation = new Animation(0.1f, atlas.findRegions("guy"));
+		megaAnimation.setPlayMode(Animation.LOOP_PINGPONG);
+		
+		stopAnimation = new Animation(1f, new Array<AtlasRegion>(new AtlasRegion[]{atlas.findRegion("guy")}));
+		
+		player = new Player(stopAnimation, megaAnimation);
+		stage.addActor(player);
+		
+		
+		
 		treeActor = new Image(tree);
 		treeActor.setX(0);treeActor.setY(0);
 		treeActor.setOrigin(treeActor.getWidth()/2, treeActor.getHeight()/2);
+
 		
 		stage.addActor(treeActor);
 				
@@ -82,6 +102,14 @@ public class IngameScreen extends AbstractScreen {
 		super.render(delta);
 		SpriteBatch batch = stage.getSpriteBatch();
 		batch.begin();
+		
+		
+		
+		// render our animation
+		// megaAnimationTime += delta;
+		// batch.draw(megaAnimation.getKeyFrame(megaAnimationTime),0,0);
+		
+		
 		if (!win && !lose) {
 			defaultFont.draw(batch, "points: " + points, 10, 470);
 		}
@@ -132,11 +160,24 @@ public class IngameScreen extends AbstractScreen {
 
 		@Override
 		public boolean keyDown(int keycode) {
+	/*		treeActor.removeAction(currentAnimation);
+			currentAnimation = new AnimAction(megaAnimation);
+			treeActor.addAction(currentAnimation);*/
+			if(keycode == Keys.RIGHT){
+				player.goRight();
+			}else if(keycode == Keys.LEFT){
+				player.goLeft();
+			}
+			
+			System.out.println(treeActor.getActions().size);
 			return false;
 		}
 
 		@Override
 		public boolean keyUp(int keycode) {
+			if(keycode == Keys.RIGHT || keycode == Keys.LEFT){
+				player.stop();
+			}
 			return false;
 		}
 
