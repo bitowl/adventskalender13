@@ -1,0 +1,131 @@
+
+tileset.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+snow_rt
+  rotate: false
+  xy: 0, 204
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fence_bl
+  rotate: false
+  xy: 0, 170
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_lt
+  rotate: false
+  xy: 34, 204
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fence_tl
+  rotate: false
+  xy: 0, 136
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_br
+  rotate: false
+  xy: 34, 170
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fence_h
+  rotate: false
+  xy: 68, 204
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow
+  rotate: false
+  xy: 0, 102
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_l
+  rotate: false
+  xy: 34, 136
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_lb
+  rotate: false
+  xy: 68, 170
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fence
+  rotate: false
+  xy: 0, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+gras
+  rotate: false
+  xy: 34, 102
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_t
+  rotate: false
+  xy: 68, 136
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_b
+  rotate: false
+  xy: 0, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_rb
+  rotate: false
+  xy: 34, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fence_br
+  rotate: false
+  xy: 68, 102
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow_r
+  rotate: false
+  xy: 0, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fence_tr
+  rotate: false
+  xy: 34, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+little_snow
+  rotate: false
+  xy: 68, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
