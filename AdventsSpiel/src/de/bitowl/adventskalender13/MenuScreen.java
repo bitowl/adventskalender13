@@ -25,7 +25,7 @@ public class MenuScreen extends AbstractScreen{
 		game = pGame;		
 		
 		// Ui building
-		skin = new Skin(Gdx.files.internal("ui/myui.json"));
+		skin = AdventGame.assets.get("ui/myui.json", Skin.class);
 		
 		Table table = new Table(skin);
 		//table.debug();

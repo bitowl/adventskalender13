@@ -3,6 +3,8 @@ package de.bitowl.adventskalender13;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -48,11 +50,17 @@ public class IngameScreen extends AbstractScreen {
 	
 	Player player;
 	
+	Sound winSound;
+	Sound gameOverSound;
+	Sound snowflakeHitSound;
+	Sound snowflakeExplodedSound;
+	Music backgroundMusic;
+	
 	
 	public IngameScreen(AdventGame pGame){
 		super(pGame);
 		
-		atlas = new TextureAtlas(Gdx.files.internal("graphics/textures.pack"));
+		atlas = AdventGame.assets.get("graphics/textures.pack", TextureAtlas.class);
 		
 		tree = atlas.findRegion("tree");
 		cursor = atlas.findRegion("cursor");
@@ -75,11 +83,11 @@ public class IngameScreen extends AbstractScreen {
 		
 		stage.addActor(treeActor);
 				
-		defaultFont = new BitmapFont(Gdx.files.internal("fonts/white.fnt"));
+		defaultFont = AdventGame.assets.get("fonts/white.fnt", BitmapFont.class);
 		defaultFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		winFont = new BitmapFont(Gdx.files.internal("fonts/win.fnt"));
+		winFont = AdventGame.assets.get("fonts/win.fnt", BitmapFont.class);
 		winFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		loseFont = new BitmapFont(Gdx.files.internal("fonts/lose.fnt"));
+		loseFont = AdventGame.assets.get("fonts/lose.fnt", BitmapFont.class);
 		loseFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		treeActor.toBack();
@@ -95,6 +103,18 @@ public class IngameScreen extends AbstractScreen {
 		stage.addActor(cursorActor);
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
+		
+		
+		winSound = AdventGame.assets.get("audio/win.ogg", Sound.class);
+		gameOverSound = AdventGame.assets.get("audio/game_over.ogg", Sound.class);
+		snowflakeHitSound = AdventGame.assets.get("audio/snowflake_hit.ogg", Sound.class);
+		snowflakeExplodedSound = AdventGame.assets.get("audio/snowflake_explode.ogg", Sound.class);
+		backgroundMusic = AdventGame.assets.get("audio/background.mp3", Music.class);
+		backgroundMusic.setVolume(0.6f);
+		backgroundMusic.setLooping(true);
+		// backgroundMusic.play();
+		
+		
 	}
 	
 	@Override
@@ -123,14 +143,16 @@ public class IngameScreen extends AbstractScreen {
 		
 		batch.end();
 
-		if (points < 0) {
+		if (points < 0  && lose == false) {
 			// you lose
+			gameOverSound.play();
 			lose = true;
 			// Gdx.app.exit();
 		}
 		
-		if (snowflakes.getChildren().size == 0) { // no more snowflakes are falling
+		if (snowflakes.getChildren().size == 0 && win == false) { // no more snowflakes are falling
 			// you win
+			winSound.play();
 			win = true;
 		}
 	}
@@ -207,6 +229,7 @@ public class IngameScreen extends AbstractScreen {
 			if(hit != null){
 				hit.remove();
 				points += 3;
+				snowflakeHitSound.play();
 			}
 			
 			
@@ -247,6 +270,7 @@ public class IngameScreen extends AbstractScreen {
 	}
 
 	public void removePointAndCreateSnowflake() {
+		snowflakeExplodedSound.play(0.4f);
 		points--;
 		generateRandomSnowflake(480); // spawn a new snowflake at the top of the screen		
 	}
@@ -260,6 +284,12 @@ public class IngameScreen extends AbstractScreen {
 		loseFont.dispose();
 		winFont.dispose();
 		defaultFont.dispose();
+		
+		winSound.dispose();
+		gameOverSound.dispose();
+		snowflakeHitSound.dispose();
+		snowflakeExplodedSound.dispose();
+		backgroundMusic.dispose();
 	}
 	
 }
