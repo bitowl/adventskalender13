@@ -10,7 +10,7 @@ public class IngameScreen extends AbstractScreen {
 	OrthogonalTiledMapRenderer renderer;
 	public IngameScreen(Game2 pGame) {
 		super(pGame);
-		map = game.assets.get("tilemap/map1.tmx", TiledMap.class);
+		map = game.assets.get("maps/map1.tmx", TiledMap.class);
 		renderer = new OrthogonalTiledMapRenderer(map,stage.getSpriteBatch());
 		renderer.setView((OrthographicCamera) stage.getCamera());
 	}

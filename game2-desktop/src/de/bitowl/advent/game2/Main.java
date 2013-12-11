@@ -2,6 +2,7 @@ package de.bitowl.advent.game2;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.tiledmappacker.TiledMapPacker;
 
 public class Main {
 	public static void main(String[] args) {

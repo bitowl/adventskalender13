@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="30" height="20" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1">
-  <image source="../tileset/tileset.png" width="128" height="256"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="20" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="30"><properties><property name="atlas" value="tileset/packed.atlas"/><property name="blended tiles" value=""/></properties>
+ <tileset firstgid="1" name="tileset" tileheight="32" tilewidth="32">
  </tileset>
- <layer name="Kachelebene 1" width="30" height="20">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFuAA3mZiaZpFrHz3sxWc3re3F5Ybh7l9CgNb2IvMHIo4HSzjTyi2D0c7BYO9AuIEW/iEG0NLsUUBfAAAwjQ2r
+ <layer height="20" name="Kachelebene 1" width="30">
+  <data compression="zlib" encoding="base64">
+   eJxjZmBgYB7FIxLzAjEfEZifyvaKAjEjEVh81N5Re0nAskAsRwSWp7K9o3gUj+JRjA0DAApcCQ8=
   </data>
  </layer>
- <layer name="Kachelebene 2" width="30" height="20">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDHfAA8SiWLAAje1lJ1F81N6hZS8rAyItMSCxeWls7ygYBUMBAAACLwEk
+ <layer height="20" name="Kachelebene 2" width="30">
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFgxVIArEUEpamk72KQKyEhJXpZK8mEGtB2SBam072joJRMApGwSgYBdQGAEBzAdU=
   </data>
  </layer>
 </map>
