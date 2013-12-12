@@ -5,7 +5,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/game2"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/bitowl/libgdx/extensions/gdx-tiled-preprocessor/gdx-tiled-preprocessor.jar" sourcepath="/home/bitowl/libgdx/extensions/gdx-tiled-preprocessor/sources/gdx-tiled-preprocessor-sources.jar"/>
-	<classpathentry kind="lib" path="/home/bitowl/libgdx/extensions/gdx-tools/gdx-tools.jar"/>
+	<classpathentry kind="lib" path="/home/bitowl/libgdx/extensions/gdx-tools/gdx-tools.jar" sourcepath="/home/bitowl/libgdx/gdx.jar"/>
 	<classpathentry kind="lib" path="/home/bitowl/libgdx/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="/home/bitowl/libgdx/gdx-backend-lwjgl.jar"/>
 	<classpathentry kind="lib" path="/home/bitowl/libgdx/gdx-backend-lwjgl-natives.jar"/>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="22" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="40"><properties><property name="atlas" value="tileset/packed.atlas"/><property name="blended tiles" value=""/></properties>
+ <tileset firstgid="1" name="tileset" tileheight="32" tilewidth="32">
+  <image height="256" source="tileset.png" width="256"/>
+ </tileset>
+ <tileset firstgid="65" name="collisiontileset" tileheight="32" tilewidth="32">
+  <image height="32" source="collisiontileset.png" width="64"/>
+ </tileset>
+ <layer height="22" name="Kachelebene 1" width="40">
+  <data compression="zlib" encoding="base64">
+   eJzt1MEKgCAMBuCFZ+tUnar3f8sUGokEW7RyjQ1+PAjyoXMBAEKDUBWPtLD93RfBhi/v94wMjXxjSsfI/JIP3Oc+xb4lZWVkY3hwFuBfl/BJJr/FBOddu8+mD3uV8mHd7esnvvKfS/nqd9HmwxnDmSHUOeUZlO/r/qtjxaet4sWqOTspSw9z
+  </data>
+ </layer>
+ <layer height="22" name="Kachelebene 2" width="40">
+  <data compression="zlib" encoding="base64">
+   eJztlV0KgCAMgHeN6il7qk6h9z9UPijYmLp+1gz8YCijtg+GDKAjiUN3l/vwIwyRc3B2G3yMKC/pTTml4P5z+MeFcwFdP0D9Vx9byMWT8uPU5WAy9xQ8S85s3/KTwiTRIm97ceZsb9aTxsI1t68oeWk7W6g71PwkZkzVtIVoFc57kibu2kmpf424axdtEaBnFHft/qCGBq14dP7NAUWcEHs=
+  </data>
+ </layer>
+</map>
