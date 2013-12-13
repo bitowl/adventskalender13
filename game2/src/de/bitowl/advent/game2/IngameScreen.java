@@ -3,6 +3,7 @@ package de.bitowl.advent.game2;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,7 +15,7 @@ public class IngameScreen extends AbstractScreen {
 
 	TiledMap map;
 	OrthogonalTiledMapRenderer renderer;
-	TiledMapTileLayer layer0;
+	TiledMapTileLayer collisionLayer;
 	
 	TextureAtlas atlas;
 	
@@ -30,10 +31,13 @@ public class IngameScreen extends AbstractScreen {
 		renderer.setView((OrthographicCamera) stage.getCamera());
 		
 		// get layer from map
-		layer0 = ((TiledMapTileLayer)map.getLayers().get(0));
-		System.out.println("height: "+layer0.getHeight());
-		System.out.println("width: "+layer0.getWidth());
-		System.out.println("tilewidth: "+layer0.getTileWidth());
+		collisionLayer = (TiledMapTileLayer) map.getLayers().get("collision");
+		// collisionLayer.setVisible(false);
+		
+		
+		System.out.println("height: "+collisionLayer.getHeight());
+		System.out.println("width: "+collisionLayer.getWidth());
+		System.out.println("tilewidth: "+collisionLayer.getTileWidth());
 		
 		player = new Player(this);
 		stage.addActor(player);
@@ -47,6 +51,8 @@ public class IngameScreen extends AbstractScreen {
 		// act all the actor
 		stage.act(delta);
 		
+		Gdx.gl.glClearColor(1, 0, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		
 		// scroll the map so that the player is in center
@@ -60,15 +66,16 @@ public class IngameScreen extends AbstractScreen {
 			position.y = stage.getHeight()/2;
 		}
 		
-		if(position.x > layer0.getWidth()*layer0.getTileWidth() - 840-player.getWidth()/2){
-			position.x = layer0.getWidth()*layer0.getTileWidth() - 840-player.getWidth()/2;
+		if(position.x > collisionLayer.getWidth()*collisionLayer.getTileWidth() - stage.getWidth()/2){
+			position.x = collisionLayer.getWidth()*collisionLayer.getTileWidth() - stage.getWidth()/2;
 		}
-		if(position.y > layer0.getHeight()*layer0.getTileHeight() - 422-player.getHeight()/2){
-			position.y = layer0.getHeight()*layer0.getTileHeight() - 422-player.getHeight()/2;
+		if(position.y > collisionLayer.getHeight()*collisionLayer.getTileHeight() - stage.getHeight()/2 ){
+			position.y = collisionLayer.getHeight()*collisionLayer.getTileHeight() - stage.getHeight()/2;
 		}
 		
 		stage.getCamera().update();
 		
+		renderer.setView((OrthographicCamera) stage.getCamera());
 		renderer.render();
 		stage.draw();
 	}
@@ -87,16 +94,12 @@ public class IngameScreen extends AbstractScreen {
 			
 			switch(keycode){
 				case Keys.LEFT:
-					player.speedX = -1;
-					break;
 				case Keys.RIGHT:
-					player.speedX = 1;
+					player.speedX = (Gdx.input.isKeyPressed(Keys.RIGHT)?1:0) - (Gdx.input.isKeyPressed(Keys.LEFT)?1:0);
 					break;
 				case Keys.UP:
-					player.speedY = 1;
-					break;
 				case Keys.DOWN:
-					player.speedY = -1;
+					player.speedY = (Gdx.input.isKeyPressed(Keys.UP)?1:0) - (Gdx.input.isKeyPressed(Keys.DOWN)?1:0);
 					break;
 			}
 			
@@ -108,11 +111,11 @@ public class IngameScreen extends AbstractScreen {
 			switch(keycode){
 			case Keys.LEFT:
 			case Keys.RIGHT:
-				player.speedX = 0;
+				player.speedX = (Gdx.input.isKeyPressed(Keys.RIGHT)?1:0) - (Gdx.input.isKeyPressed(Keys.LEFT)?1:0);
 				break;
 			case Keys.UP:
 			case Keys.DOWN:
-				player.speedY = 0;
+				player.speedY = (Gdx.input.isKeyPressed(Keys.UP)?1:0) - (Gdx.input.isKeyPressed(Keys.DOWN)?1:0);
 				break;
 			}
 			return false;

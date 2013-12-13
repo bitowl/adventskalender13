@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="22" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
-  <image source="tileset.png" width="256" height="256"/>
- </tileset>
- <tileset firstgid="65" name="collisiontileset" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="collisiontileset" tilewidth="32" tileheight="32">
   <image source="collisiontileset.png" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="3" name="tileset" tilewidth="32" tileheight="32">
+  <image source="tileset.png" width="256" height="256"/>
  </tileset>
  <layer name="Kachelebene 1" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJzt1MEKgCAMBuCFZ+tUnar3f8sUGokEW7RyjQ1+PAjyoXMBAEKDUBWPtLD93RfBhi/v94wMjXxjSsfI/JIP3Oc+xb4lZWVkY3hwFuBfl/BJJr/FBOddu8+mD3uV8mHd7esnvvKfS/nqd9HmwxnDmSHUOeUZlO/r/qtjxaet4sWqOTspSw9z
+   eJzt16EOgDAMhOEmZLVsakPB3v8l6cR0a8g14cTnf3VNVURKUpqggXBOUwMaqK+bI+BiH/t+2HebJ2CC+ojQ9o1D3TDP2pghuA3x7I3hhtAXMv8gq+0FFOIT5g==
   </data>
  </layer>
  <layer name="Kachelebene 2" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJztlV0KgCAMgHeN6il7qk6h9z9UPijYmLp+1gz8YCijtg+GDKAjiUN3l/vwIwyRc3B2G3yMKC/pTTml4P5z+MeFcwFdP0D9Vx9byMWT8uPU5WAy9xQ8S85s3/KTwiTRIm97ceZsb9aTxsI1t68oeWk7W6g71PwkZkzVtIVoFc57kibu2kmpf424axdtEaBnFHft/qCGBq14dP7NAUWcEHs=
+   eJxjYBgFIwmoEKFGGohlkLAsTV1EnJuQgTJUDwyrUt1FqIBU92kDsQ6UDaJ1qWQuLqCCg01NcwcjQE4DgxFQ213UjufBGm6jgHqAFnFMrJmDPX3RqtwkBcDqWlrXseQCWF1L6zqWGIAtjmB1La46lhgzBgIMFneMgqENAEjnBk0=
+  </data>
+ </layer>
+ <layer name="collision" width="40" height="22" opacity="0.37">
+  <data encoding="base64" compression="zlib">
+   eJztllEKACEIRPX+l95/KWzUWYN8EO2HTK4jlsjwEnoYYxcTVL8qPzW7F4fo6uI7oovGVHrF9j3Lzn/rK6s+HtXeVf+H15fd9UOYvPDzT+cfohmJ6yLb19H6WQ32HXtTfqt7O9NPaH7ojGV5w5zfXfz9bhxEPiw+AFE=
   </data>
  </layer>
 </map>
